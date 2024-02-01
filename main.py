@@ -7,7 +7,7 @@ class Window():
     self.__canvas = Canvas(self.__root, width=width, height=height)
     self.__canvas.pack(fill=BOTH, expand=True)
     self.__root.protocol("WM_DELETE_WINDOW", self.close)
-    self.running = False
+    self.__running = False
 
 
   def redraw(self):
@@ -15,12 +15,13 @@ class Window():
     self.__root.update()
 
   def wait_for_close(self):
-    self.running = True
-    if self.running == True:
+    self.__running = True
+    while self.__running:
       self.redraw()
+    print("closed")
 
   def close(self):
-    self.running = False
+    self.__running = False
 
 def main():
   win = Window(800, 600)
